@@ -33,7 +33,7 @@ name: CI - Build & Push Docker Image
 on:
   push:
     paths:
-      - "app/**"   # شغل الـ CI بس لو الكود في مجلد app اتغير
+      - "App/**"   # شغل الـ CI بس لو الكود في مجلد app اتغير
       - "Dockerfile"
     branches:
       - ci       # أو أي برانش أساسي عندك
