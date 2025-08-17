@@ -63,17 +63,18 @@
 #           push: true
 #           tags: ${{ secrets.DOCKER_USERNAME }}/myapp:latest
 
-name: CI Test
+name: Test CI
 
 on:
-  workflow_dispatch:
   push:
     branches:
-      - ci
-
+      - ci   # يشتغل أوتوماتيك عند أي push في فرع ci
+  workflow_dispatch:   # يديك زرار "Run workflow" في GitHub Actions
+  
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Print OK
-        run: echo "ok"
+        run: echo "✅ CI workflow triggered successfully!"
