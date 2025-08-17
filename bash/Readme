@@ -1,0 +1,2 @@
+# Tring make script to start terraform becouse we need to make ssh keys by command line before created instance
+# We use script to copy IPs for instances to ssh config to make it easy to connect instances

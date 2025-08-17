@@ -1,0 +1,2 @@
+# Using terraform make instances for cluster
+# make 1 instance for bastion , 1 for master , 2 for worker 

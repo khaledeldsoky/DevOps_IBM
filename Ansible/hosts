@@ -1,0 +1,9 @@
+[bastion]
+bastion
+
+[master]
+master
+
+[worker]
+worker-1
+worker-2

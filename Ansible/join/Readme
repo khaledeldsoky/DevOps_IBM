@@ -1,0 +1,7 @@
+I use this role to join the worker node to the cluster
+There is two way 
+
+1. we copy the output come from the master  (join commnad) to our local machine and apply this output to the worker node
+   but this way is not secure the join command have credentials data
+
+2. we save the output come from the master  (join commnad) in Save join command in ansible cachea

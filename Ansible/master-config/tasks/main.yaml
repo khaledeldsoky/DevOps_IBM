@@ -1,0 +1,44 @@
+---
+- name: Initialize Kubernetes master
+  ansible.builtin.command: kubeadm init
+  args:
+    creates: /etc/kubernetes/admin.conf
+  register: initialize
+  changed_when: initialize.rc != 0
+
+
+- name: Save kubeadm join command to file
+  ansible.builtin.command: kubeadm token create --print-join-command
+  register: join_command
+  changed_when: join_command.rc != 0
+
+
+## ------ We copy the join command in our localhost to use this command
+# - name: Copy kubeadm join command to file
+#   ansible.builtin.copy:
+#     content: "{{ join_command.stdout }}"
+#     mode: "0755"
+#     dest: ./output.txt
+#   delegate_to: localhost
+#   become: false
+
+
+- name: Save join command in ansible cacheable
+  ansible.builtin.set_fact:
+    join_cmd: "{{ join_command.stdout }}"
+    cacheable: true
+
+- name: Make dir for kubeadm config
+  ansible.builtin.file:
+    state: directory
+    path: "/home/ubuntu/.kube"
+    mode: "0755"
+
+- name: Copy config from etc to user dir
+  ansible.builtin.copy:
+    src: /etc/kubernetes/admin.conf
+    dest: "/home/ubuntu/.kube/config"
+    mode: '0644'
+    remote_src: true
+    owner: "ubuntu"
+    group: "ubuntu"

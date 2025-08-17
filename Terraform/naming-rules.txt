@@ -1,0 +1,4 @@
+- small letters
+  - exception in the abbreviation , all the word is Capital
+
+- spereated by -

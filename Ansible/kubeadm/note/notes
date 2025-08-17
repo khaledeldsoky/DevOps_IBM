@@ -1,0 +1,27 @@
+# ------------------------ install k9s 
+install it normally from the official website
+
+https://v1-28.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+
+becarfull you need to remove this line  "disabled_plugins = ["cri"]" from this file /etc/containerd/config.toml 
+
+
+
+this link will be help
+
+https://kubernetes.io/docs/setup/production-environment/container-runtimes/#cri-o
+https://discuss.kubernetes.io/t/kubeadmin-join-throws-this-error-proc-sys-net-bridge-bridge-nf-call-iptables-does-not-exist/24855/2
+
+
+`containerd config dump>/etc/containerd/config.toml`
+*search for SystemdCgroup and make it true*
+
+*after this you restart containerd*
+`sudo systemctl restart containerd`
+
+*make this command*
+```bash
+modprobe br_netfilter
+echo 1 > /proc/sys/net/bridge/bridge-nf-call-iptables
+echo 1 > /proc/sys/net/ipv4/ip_forward
+```
