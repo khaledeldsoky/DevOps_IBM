@@ -4,11 +4,11 @@ LABEL stage=builder
 WORKDIR /app
 
 # Install only dependencies if package files change
-COPY package*.json ./
+COPY App/package*.json ./
 RUN npm install
 
 # Copy source and build
-COPY . .
+COPY  App/ ./
 RUN npm run build
 
 
