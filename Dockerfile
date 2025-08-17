@@ -5,7 +5,7 @@ WORKDIR /app
 
 # Install only dependencies if package files change
 COPY package*.json ./
-RUN npm ci
+RUN npm 
 
 # Copy source and build
 COPY . .
