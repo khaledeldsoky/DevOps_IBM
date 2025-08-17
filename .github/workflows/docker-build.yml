@@ -68,9 +68,9 @@ name: Test CI
 on:
   push:
     branches:
-      - ci   # يشتغل أوتوماتيك عند أي push في فرع ci
+      - "*"   # يشتغل أوتوماتيك عند أي push في فرع ci
   workflow_dispatch:   # يديك زرار "Run workflow" في GitHub Actions
-  
+
 jobs:
   test:
     runs-on: ubuntu-latest
