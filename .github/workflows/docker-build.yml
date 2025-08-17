@@ -66,6 +66,7 @@
 name: CI Test
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - ci
