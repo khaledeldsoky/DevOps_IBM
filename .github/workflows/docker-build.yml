@@ -28,7 +28,7 @@
 #           push: true
 #           tags: ${{ secrets.DOCKER_USERNAME }}/myapp:latest
 
-name: CI - Build & Push Docker Image
+name: CI branch
 
 on:
   push:
