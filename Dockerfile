@@ -12,6 +12,7 @@ COPY . .
 RUN npm run build
 
 
+
 # === Stage 2: Production Image ===
 FROM nginx:stable-alpine
 LABEL maintainer="khaled khaled@example.com"

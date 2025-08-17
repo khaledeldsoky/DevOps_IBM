@@ -11,6 +11,7 @@ This project was created to be an example of what I consider a good frontend arc
     <img src="media/cover.png">
 </p>
 
+
 ## Summary <!-- omit in toc -->
 
 - [Technologies Used](#technologies-used)
