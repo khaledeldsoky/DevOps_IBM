@@ -60,4 +60,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: khaledmohamedatia/myapp
+          tags: ${{ secrets.DOCKER_USERNAME }}/myapp
