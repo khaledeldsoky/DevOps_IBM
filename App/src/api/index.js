@@ -7,7 +7,6 @@ export const seededRandom = function (seed) {
 		return (s = (s * a) % m) / m;
 	};
 };
-
 export const fetchAPI = function (date) {
 	const result = [];
 	const random = seededRandom(date.getDate());
