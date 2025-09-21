@@ -43,9 +43,12 @@ name: Push to Docker Hub
 
 on:
   workflow_run:
-    workflows: ["Trivy Scan"]   # 👈 Depends on the first workflow
+    workflows: "Trivy Scan"  # 👈 Depends on the first workflow
     types:
       - completed
+# on:
+#   push:
+#     branches: "ci"
 
 jobs:
   build:
