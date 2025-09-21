@@ -68,8 +68,8 @@ name: Test CI
 on:
   push:
     branches:
-      - "ci"   # يشتغل أوتوماتيك عند أي push في فرع ci
-  workflow_dispatch:   # يديك زرار "Run workflow" في GitHub Actions
+      - "ci"   
+  workflow_dispatch:   
 
 jobs:
   test:

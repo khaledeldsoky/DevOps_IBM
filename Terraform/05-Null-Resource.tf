@@ -32,8 +32,8 @@ resource "null_resource" "copy_ssh_config" {
   provisioner "local-exec" {
     command = <<-EOF
      ../bash/ssh_config.sh ${local.bastion_ip} ${local.master_ip} ${local.worker_ip_1} ${local.worker_ip_2}
-      # cd ../Ansible
-      # ansible-playbook playbook.yaml
+      cd ../Ansible
+      ansible-playbook main.yml
     EOF
   }
 

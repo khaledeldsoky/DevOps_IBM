@@ -1,7 +1,7 @@
-[bastion]
+[Bastion]
 bastion
 
-[master]
+[Master]
 master
 
 [worker]

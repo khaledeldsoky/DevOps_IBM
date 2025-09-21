@@ -13,15 +13,15 @@ module "Network" {
     }
 
     "private-subnet-1" = {
-      zone = var.zone_eu_gb_2
-      cidr = var.cider_block_192_168_2
-      public_gateway     = module.Network.GW_id["nat-1"].id
+      zone           = var.zone_eu_gb_2
+      cidr           = var.cider_block_192_168_2
+      public_gateway = module.Network.GW_id["nat-1"].id
     }
 
     "private-subnet-2" = {
-      zone = var.zone_eu_gb_3
-      cidr = var.cider_block_192_168_3
-      public_gateway     = module.Network.GW_id["nat-2"].id
+      zone           = var.zone_eu_gb_3
+      cidr           = var.cider_block_192_168_3
+      public_gateway = module.Network.GW_id["nat-2"].id
     }
   }
 
@@ -49,11 +49,11 @@ module "Network" {
   }
 
   NAT = {
-    "nat-1"= {
+    "nat-1" = {
       zone = var.zone_eu_gb_2
     }
 
-    "nat-2"= {
+    "nat-2" = {
       zone = var.zone_eu_gb_3
     }
   }
@@ -84,6 +84,8 @@ module "Security" {
       port_max  = "${rule.port_max}"
       port_min  = "${rule.port_min}"
     }
+
+  
   }
 
   SGR_udp = {
@@ -97,7 +99,15 @@ module "Security" {
   }
 
   SGR_icmp = {
+
     #---------- inbound ----------#
+
+    SGR_icmp_bastion_inbound = {
+      group     = module.Security.security_group["public"].id
+      direction = "inbound"
+      remote    = "0.0.0.0/0"
+    }
+
     SGR_icmp_master_inbound = {
       group     = module.Security.security_group["private-master"].id
       direction = "inbound"
@@ -111,6 +121,14 @@ module "Security" {
     }
 
     #---------- outbound ----------#
+
+
+    SGR_icmp_bastion_outbound = {
+      group     = module.Security.security_group["public"].id
+      direction = "outbound"
+      remote    = "0.0.0.0/0"
+    }
+
     SGR_icmp_master_outbound = {
       group     = module.Security.security_group["private-master"].id
       direction = "outbound"
@@ -123,7 +141,7 @@ module "Security" {
       remote    = "0.0.0.0/0"
     }
   }
-  
+
   ssh_key = {
     "private-ssh-key" = {
       path     = var.ssh_key_private_path

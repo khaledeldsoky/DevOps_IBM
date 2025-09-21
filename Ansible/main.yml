@@ -1,12 +1,19 @@
 ---
+
+# - name: Add DNS servers
+#   hosts: bastion , master , worker
+#   roles:
+#     - DNS
+
 - name: Master
-  hosts: master
+  hosts: Master
   roles:
-    # - kubeadm
+    - kubeadm
     - master-config
+
 
 - name: Join worker
   hosts: worker
   roles:
-    # - kubeadm
+    - kubeadm
     - join

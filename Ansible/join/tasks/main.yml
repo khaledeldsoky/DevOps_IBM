@@ -1,3 +1,4 @@
+---
 ## The first way
 ## ------ We want to take the output (Join command) from the master to join the worker for the cluster ------
 
@@ -29,6 +30,25 @@
 
 - name: Join cluster
   ansible.builtin.command: "{{ hostvars['master'].join_cmd }}"
-  no_log: true
   register: join_cluster
   changed_when: join_cluster.rc == 0
+
+- name: Make dir for kubeadm config
+  ansible.builtin.file:
+    state: directory
+    path: "/home/ubuntu/.kube"
+    mode: "0755"
+
+- name: Make file for kubeadm config
+  ansible.builtin.file:
+    state: touch
+    path: "/home/ubuntu/.kube/config"
+    mode: '0644'
+
+- name: Copy kubeconfig content to worker
+  ansible.builtin.copy:
+    dest: /home/ubuntu/.kube/config
+    content: "{{ hostvars['master'].kubeconfig_raw }}"
+    owner: ubuntu
+    group: ubuntu
+    mode: '0644'

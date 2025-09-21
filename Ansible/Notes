@@ -3,3 +3,7 @@
 sudo kubeadm reset -f
 sudo systemctl restart kubelet
 sudo rm -rf /etc/cni/net.d
+
+kubeadm join 192.168.2.10:6443 --token ph8sbw.jt60e2flvqk2nc0c \
+        --discovery-token-ca-cert-hash sha256:1844c77fc3515b517d7f961da5dd25cc6db1eed9972393f10ecac4b07dcd174c 
+

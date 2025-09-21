@@ -1,0 +1,26 @@
+
+- name: Set DNS servers
+  community.general.ini_file:
+    path: /etc/systemd/resolved.conf
+    section: Resolve
+    option: DNS
+    value: "8.8.8.8 1.1.1.1"
+
+- name: Set Fallback DNS servers
+  community.general.ini_file:
+    path: /etc/systemd/resolved.conf
+    section: Resolve
+    option: FallbackDNS
+    value: "8.8.4.4 1.0.0.1"
+
+- name: Restart systemd-resolved
+  ansible.builtin.systemd_service:
+    name: systemd-resolved
+    state: restarted
+
+- name: Ensure /etc/resolv.conf points to systemd-resolved
+  ansible.builtin.file:
+    src: /run/systemd/resolve/resolv.conf
+    dest: /etc/resolv.conf
+    state: link
+    force: true
