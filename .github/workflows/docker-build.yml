@@ -32,12 +32,12 @@ name: CI branch
 
 on:
   push:
-    paths:
-      - "App/**"   # شغل الـ CI بس لو الكود في مجلد app اتغير
-      - "Dockerfile"
+    # paths:
+    #   - "App/**"   # شغل الـ CI بس لو الكود في مجلد app اتغير
+    #   - "Dockerfile"
     branches:
-      - "ci"      
-  workflow_dispatch: 
+      - "ci"
+  workflow_dispatch:
 
 jobs:
   build:
