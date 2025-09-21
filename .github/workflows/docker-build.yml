@@ -28,36 +28,52 @@
 #           push: true
 #           tags: ${{ secrets.DOCKER_USERNAME }}/myapp:latest
 
-name: CI branch
+# name: CI branch
+
+# on:
+#   push:
+#     paths:
+#       - "App/**"   # شغل الـ CI بس لو الكود في مجلد app اتغير
+#       - "Dockerfile"
+#     branches:
+#       - "ci"      
+#   workflow_dispatch: 
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+
+#       - name: Log in to Docker Hub
+#         uses: docker/login-action@v3
+#         with:
+#           username: ${{ secrets.DOCKER_USERNAME }}
+#           password: ${{ secrets.DOCKER_PASSWORD }}
+
+#       - name: Build and Push Docker image
+#         uses: docker/build-push-action@v5
+#         with:
+#           context: .
+#           file: ./Dockerfile
+#           push: true
+#           tags: ${{ secrets.DOCKER_USERNAME }}/myapp
+
+name: Test CI
 
 on:
   push:
-    # paths:
-    #   - "App/**"   # شغل الـ CI بس لو الكود في مجلد app اتغير
-    #   - "Dockerfile"
     branches:
-      - "ci"      
-  workflow_dispatch: 
+      - "ci"
+  workflow_dispatch:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and Push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/myapp
+      - name: Print OK
+        run: echo "✅ CI workflow triggered successfully!"
