@@ -1,0 +1,35 @@
+# name: CI branch
+
+# on:
+#   push:
+#     # paths:
+#     #   - "App/**"   # شغل الـ CI بس لو الكود في مجلد app اتغير
+#     #   - "Dockerfile"
+#     branches:
+#       - "ci"
+#   workflow_dispatch:
+
+name: Trivy Scan
+
+on:
+  push:
+    branches: "ci"
+
+
+jobs:
+  trivy-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build Docker image
+        run: docker build -t myapp:latest .
+      - name: Scan Docker image with Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'myapp:latest'
+          format: 'table'
+          exit-code: '1'
+          severity: 'CRITICAL,HIGH'

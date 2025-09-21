@@ -28,19 +28,28 @@
 #           push: true
 #           tags: ${{ secrets.DOCKER_USERNAME }}/myapp:latest
 
-name: CI branch
+# name: CI branch
+
+# on:
+#   push:
+#     # paths:
+#     #   - "App/**"   # شغل الـ CI بس لو الكود في مجلد app اتغير
+#     #   - "Dockerfile"
+#     branches:
+#       - "ci"
+#   workflow_dispatch:
+
+name: Push to Docker Hub
 
 on:
-  push:
-    # paths:
-    #   - "App/**"   # شغل الـ CI بس لو الكود في مجلد app اتغير
-    #   - "Dockerfile"
-    branches:
-      - "ci"
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["Trivy Scan"]   # 👈 Depends on the first workflow
+    types:
+      - completed
 
 jobs:
   build:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
