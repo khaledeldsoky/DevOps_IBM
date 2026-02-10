@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "argocd.fullname" .}}-repo-server
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: argocd-repo-server
+spec:
+  replicas: {{ .Values.repoServer.replicaCount }}
+  selector:
+    matchLabels:
+      app: argocd-repo-server
+  template:
+    metadata:
+      labels:
+        app: argocd-repo-server
+    spec:
+      containers:
+      - name: argocd-repo-server
+        image: "{{ .Values.repoServer.image.repository  }}:{{ .Values.repoServer.image.tag }}"
+        ports:
+          - containerPort: {{ .Values.repoServer.containerPort }}
+        command: ["argocd-repo-server"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "argocd.fullname" .}}-server
+  namespace: {{ .Values.namespace }}
+spec:
+  type: ClusterIP
+  selector:
+    app: argocd-repo-server
+  ports:
+    - name: repo-http
+      port: {{ .Values.repoServer.service.port }}
+      targetPort: {{ .Values.repoServer.service.containerPort }}
+helm upgrade argocd ./Helm --values Helm/values.yaml -n argocd

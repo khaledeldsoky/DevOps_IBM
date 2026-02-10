@@ -1,0 +1,6 @@
+apiVersion: v2                # Helm chart API version (v1 for Helm 2, v2 for Helm 3+)
+name: argocd                  # name of your chart
+description: A Helm chart to deploy ArgoCD on Kubernetes
+type: application             # this is an app (not a library chart)
+version: 0.1.0                # version of *your* chart (not ArgoCD itself)
+appVersion: "2.10.0"          # version of the app you’re packaging (ArgoCD version)

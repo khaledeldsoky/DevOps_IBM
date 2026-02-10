@@ -1,0 +1,33 @@
+namespace: argocd
+server:
+  replicaCount: 2
+  containerPort: 8080
+  image:
+    repository: quay.io/argoproj/argocd
+    tag: v2.12.0
+  service:
+    port: 80
+    nodePort: 30080
+  
+repoServer:
+  containerPort: 8081
+  replicaCount: 1
+  image:
+    repository: quay.io/argoproj/argocd
+    tag:  v2.10.0
+  service: 
+    service:
+      port: 8081
+
+controller:
+  replicaCount: 1
+  image:
+    repository: quay.io/argoproj/argocd
+    tag: v2.10.0
+
+dex:
+  replicaCount: 1
+  image:
+    repository: quay.io/dexidp/dex
+    tag: v2.37.0
+

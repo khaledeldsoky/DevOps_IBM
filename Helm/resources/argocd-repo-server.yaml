@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-repo-server
+  namespace: argocd
+  labels:
+    app: argocd-repo-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: argocd-repo-server
+  template:
+    metadata:
+      labels:
+        app: argocd-repo-server
+    spec:
+      containers:
+      - name: nginx
+        image: quay.io/argoproj/argocd:v2.12.0
+        ports:
+        - containerPort: 8081
+        command: ["argocd-repo-server"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-repo-server
+  namespace: argocd
+spec:
+  type: ClusterIP
+  selector:
+    app: argocd-repo-server
+  ports:
+    - port: 8081
+      targetPort: 8081

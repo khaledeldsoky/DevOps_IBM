@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "argocd.fullname" . }}-server
+  mamespace: {{ .Values.namespace }}
+  labels:
+    app: argocd-server
+spec:
+  replicas: {{ .Values.server.replicaCount }}
+  selector:
+    matchLabels:
+      app: argocd-server
+  template:
+    metadata:
+      labels:
+        app: argocd-server
+    spec:
+      containers:
+      - name: argocd-server
+        image: "{{ .Values.server.image.repository  }}:{{ .Values.server.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.server.containerPort }}
+        command: ["argocd-server"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "argocd.fullname" . }}-server
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: argocd-server
+spec:
+  type: NodePort
+  selector:
+    app: argocd-server
+  ports:
+    - name: server-http
+      port: {{ .Values.server.service.port }}
+      targetPort: {{  .Values.server.containerPort }}
+      nodePort: {{ .Values.server.service.nodePort}}
+

@@ -1,0 +1,22 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "argocd.fullname" . }}-application-controller
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: argocd-application-controller
+spec:
+  replicas: {{ .Values.controller.replicaCount }}
+  selector:
+    matchLabels:
+      app: argocd-application-controller
+  template:
+    metadata:
+      labels:
+        app: argocd-application-controller
+    spec:
+      containers:
+      - name: argocd-application-controller
+        image:  "{{ .Values.controller.image.repository }}:{{  .Values.controller.image.tag }}"
+        command: ["argocd-application-controller"]
