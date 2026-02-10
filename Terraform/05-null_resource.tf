@@ -31,9 +31,9 @@ resource "null_resource" "copy_ssh_config" {
   
   provisioner "local-exec" {
     command = <<-EOF
-     ../bash/ssh_config.sh ${local.bastion_ip} ${local.master_ip} ${local.worker_ip_1} ${local.worker_ip_2}
-      cd ../Ansible
-      ansible-playbook main.yml
+     ../bash/ssh_config.sh ${local.bastion_ip}
+      # cd ../Ansible
+      # ansible-playbook main.yml
     EOF
   }
 
@@ -42,3 +42,5 @@ resource "null_resource" "copy_ssh_config" {
     always_run = timestamp()
   }
 }
+
+# ../bash/ssh_config.sh ${local.bastion_ip} #${local.master_ip} ${local.worker_ip_1} ${local.worker_ip_2}

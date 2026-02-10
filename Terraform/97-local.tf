@@ -1,9 +1,9 @@
 locals {
-  master_ip = module.Compute.instance["master-instance"].primary_network_interface[0].primary_ipv4_address
+  # master_ip = module.Compute.instance["master-instance"].primary_network_interface[0].primary_ipv4_address
 
-  worker_ip_1 = module.Compute.instance["worker-instance-1"].primary_network_interface[0].primary_ipv4_address
+  # worker_ip_1 = module.Compute.instance["worker-instance-1"].primary_network_interface[0].primary_ipv4_address
 
-  worker_ip_2 = module.Compute.instance["worker-instance-2"].primary_network_interface[0].primary_ipv4_address
+  # worker_ip_2 = module.Compute.instance["worker-instance-2"].primary_network_interface[0].primary_ipv4_address
 
   bastion_ip = data.ibm_is_floating_ip.public_ip_bastion.address
 
@@ -21,6 +21,8 @@ locals {
     { type = "TCP", group_name = "public", remote = "0.0.0.0/0", direction = "outbound", name = "http", port_min = 80, port_max = 80 },
     { type = "TCP", group_name = "public", remote = "0.0.0.0/0", direction = "outbound", name = "https", port_min = 443, port_max = 443 },
     { type = "TCP", group_name = "public", remote = "0.0.0.0/0", direction = "outbound", name = "all", port_min = 1, port_max = 65535 },
+
+     
     # ----------------------------- master  ----------------------------- #
     { type = "TCP", group_name = "private-master", remote = "0.0.0.0/0", direction = "inbound", name = "ssh", port_min = 22, port_max = 22 },
     { type = "TCP", group_name = "private-master", remote = "0.0.0.0/0", direction = "inbound", name = "DNS", port_min = 53, port_max = 53 },
@@ -36,7 +38,6 @@ locals {
     { type = "TCP", group_name = "private-master", remote = "0.0.0.0/0", direction = "inbound", name = "10251", port_min = 10251, port_max = 10251 },
     { type = "TCP", group_name = "private-master", remote = "0.0.0.0/0", direction = "inbound", name = "10252", port_min = 10252, port_max = 10252 },
     { type = "TCP", group_name = "private-master", remote = "0.0.0.0/0", direction = "inbound", name = "12252", port_min = 12252, port_max = 12252 },
-    { type = "TCP", group_name = "private-master", remote = "0.0.0.0/0", direction = "inbound", name = "22623", port_min = 22623, port_max = 22623 },
     { type = "TCP", group_name = "private-master", remote = "0.0.0.0/0", direction = "inbound", name = "all", port_min = 1, port_max = 65535 },
 
     { type = "TCP", group_name = "private-master", remote = "0.0.0.0/0", direction = "outbound", name = "ssh", port_min = 22, port_max = 22 },
@@ -92,6 +93,7 @@ locals {
 
     { type = "UDP", group_name = "private-master", remote = "0.0.0.0/0", direction = "outbound", name = "6783", port_min = 6783, port_max = 6783 },
     { type = "UDP", group_name = "private-master", remote = "0.0.0.0/0", direction = "outbound", name = "6784", port_min = 6783, port_max = 6784 },
+
 
     # ----------------------------- node  ----------------------------- #
     { type = "UDP", group_name = "private-worker", remote = "0.0.0.0/0", direction = "inbound", name = "6783", port_min = 6783, port_max = 6783 },

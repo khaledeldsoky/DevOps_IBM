@@ -1,6 +1,11 @@
+variable "resource_group_id" {
+  type = string
+}
+
+
 variable "security_groups" {
   type = map(object({
-    vpc_id = string 
+    vpc_id            = string
   }))
 }
 
@@ -34,8 +39,9 @@ variable "SGR_icmp" {
 
 variable "ssh_key" {
   type = map(object({
-    path     = string
-    ssh_type = string
+
+    path              = string
+    ssh_type          = string
   }))
 }
 

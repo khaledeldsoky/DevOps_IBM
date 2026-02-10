@@ -1,0 +1,7 @@
+- name: Copy my local folder to remote
+  copy:
+    src: /home/khaled/khaled/Project_DevOps/Infra/Ansible/Copy/templetes    # folder on your control machine
+    dest: /home/ubuntu/  # destination on remote machine
+    owner: ubuntu
+    group: ubuntu
+    mode: '0755'

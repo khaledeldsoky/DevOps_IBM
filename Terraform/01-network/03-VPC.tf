@@ -1,6 +1,6 @@
-resource "ibm_resource_group" "resource-group" {
-  name = var.resource_group_name
-}
+# resource "ibm_resource_group" "resource_group" {
+#   name = var.resource_group_name
+# }
 
 resource "ibm_is_vpc" "VPC" {
   name           = var.VPC_name

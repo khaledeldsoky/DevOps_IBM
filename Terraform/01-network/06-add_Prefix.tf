@@ -14,5 +14,5 @@ resource "ibm_is_vpc_address_prefix" "address_prefixs" {
   zone = each.value.zone
   vpc  = var.vpc_id
   cidr = each.value.cidr
-  
+
 }

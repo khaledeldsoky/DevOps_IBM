@@ -1,12 +1,17 @@
-resource "ibm_is_instance" "Instances" {
+resource "ibm_is_instance" "instances" {
   for_each = var.instances
-
+resource_group = var.resource_group_id
   name    = each.key
   image   = each.value.image
   profile = each.value.profile
   vpc     = each.value.vpc_id
   zone    = each.value.zone
   keys    = [each.value.ssh_key_id]
+
+  # boot_volume {
+  #   size = each.value.boot_volume_size
+  #   name = "${each.key}-boot-volume"
+  # }
 
   primary_network_interface {
 

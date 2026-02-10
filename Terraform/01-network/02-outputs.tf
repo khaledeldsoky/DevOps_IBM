@@ -1,6 +1,6 @@
-output "resource_group" {
-  value = ibm_resource_group.resource-group
-}
+# output "resource_group" {
+#   value = ibm_resource_group.resource_group
+# }
 
 output "VPC" {
   value = ibm_is_vpc.VPC
@@ -16,6 +16,16 @@ output "GW_id" {
     {
       id   = GWs.id
       name = GWs.name
+    }
+  }
+}
+
+output "routing_tables" {
+  value = {
+    for routing_tables in ibm_is_vpc_routing_table.routing_table : routing_tables.name =>
+    {
+      id   = routing_tables.id
+      name = routing_tables.name
     }
   }
 }
