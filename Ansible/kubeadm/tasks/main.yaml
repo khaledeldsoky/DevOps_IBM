@@ -59,7 +59,7 @@
 - name: Generate default containerd config
   ansible.builtin.command: sudo containerd config default
   register: containerd_config
-  changed_when: containerd_config.rc != 0
+  changed_when: false
 
 - name: Create /etc/containerd directory
   ansible.builtin.file:

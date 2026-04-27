@@ -2,7 +2,7 @@
 ## The first way
 ## ------ We want to take the output (Join command) from the master to join the worker for the cluster ------
 
-## ------ set_fact module 
+## ------ set_fact module
 ## ------ create or overwrite a variable during playbook execution
 ## ------ set_fact creates a variable join_cmd or any name variable you want
 
@@ -31,7 +31,7 @@
 - name: Join cluster
   ansible.builtin.command: "{{ hostvars['master'].join_cmd }}"
   register: join_cluster
-  changed_when: join_cluster.rc == 0
+  changed_when: false
 
 - name: Make dir for kubeadm config
   ansible.builtin.file:

@@ -4,13 +4,13 @@
   args:
     creates: /etc/kubernetes/admin.conf
   register: initialize
-  changed_when: initialize.rc != 0
+  changed_when: false
 
 
 - name: Save kubeadm join command to file
   ansible.builtin.command: kubeadm token create --print-join-command
   register: join_command
-  changed_when: join_command.rc != 0
+  changed_when: false
 
 ## ------ We copy the join command in our localhost to use this command
 # - name: Copy kubeadm join command to file
@@ -44,7 +44,7 @@
 - name: Read kubeconfig from master
   ansible.builtin.command: cat /etc/kubernetes/admin.conf
   register: kubeconfig_raw
-  changed_when: kubeconfig_raw.rc != 0
+  changed_when: false
 
 - name: Set fact with kubeconfig content
   ansible.builtin.set_fact:
@@ -55,3 +55,4 @@
     cmd: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.5/manifests/calico.yaml
   environment:
     KUBECONFIG: /etc/kubernetes/admin.conf
+  changed_when: false
